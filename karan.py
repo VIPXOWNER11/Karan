@@ -77,16 +77,21 @@ async def attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def myinfo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     await update.message.reply_text(
-        f"👤 *Your Info:*\n\n"
-        f"🆔 ID: `{user.id}`\n"
-        f"🙋‍♂️ Name: {user.full_name}\n"
+        f"👤 *Your Info:*
+
+"
+        f"🆔 ID: `{user.id}`
+"
+        f"🙋‍♂️ Name: {user.full_name}
+"
         f"📧 Username: @{user.username if user.username else 'N/A'}",
         parse_mode="Markdown"
     )
 
 # /owner command
 async def owner(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📞 Contact Owner:\n👉 [VIP_OWNER9](https://t.me/VIP_OWNER9)", parse_mode="Markdown")
+    await update.message.reply_text("📞 Contact Owner:
+👉 [VIP_OWNER9](https://t.me/VIP_OWNER9)", parse_mode="Markdown")
 
 # /when command
 async def when(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -94,15 +99,20 @@ async def when(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # /canary command
 async def canary(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🦅 Canary Version: v9.11-beta\n🔗 Stay updated for experimental features!")
+    await update.message.reply_text("🦅 Canary Version: v9.11-beta
+🔗 Stay updated for experimental features!")
 
 # /rules command
 async def rules(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "📜 *Bot Rules:*\n"
-        "1. No misuse or illegal activities.\n"
-        "2. Respect usage limits.\n"
-        "3. Owner decisions are final.\n"
+        "📜 *Bot Rules:*
+"
+        "1. No misuse or illegal activities.
+"
+        "2. Respect usage limits.
+"
+        "3. Owner decisions are final.
+"
         "4. Be cool 😎 and have fun!",
         parse_mode="Markdown"
     )
@@ -118,3 +128,4 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("canary", canary))
     app.add_handler(CommandHandler("rules", rules))
     app.run_polling()
+    
